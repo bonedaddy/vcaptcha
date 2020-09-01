@@ -24,10 +24,16 @@ func TestVCaptcha(t *testing.T) {
 	tickBytes, err = tick.Marshal()
 	require.NoError(t, err)
 
+	// first attempt is valid
 	_, err = cap.Verify(tickBytes)
 	require.NoError(t, err)
-
+	// second attempt is invalid
+	_, err = cap.Verify(tickBytes)
+	require.Error(t, err)
 	// test an invalid proof
+	_, err = cap.Verify([]byte{1, 1, 1})
+	require.Error(t, err)
+
 	tickBytes, err = cap.Request()
 	require.NoError(t, err)
 
