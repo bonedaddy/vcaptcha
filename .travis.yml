@@ -17,7 +17,7 @@ before_script:
 - go test -run xxxx ./...
 
 script:
-- make verifiers
+# - make verifiers
 - go test -race -short -coverprofile=coverage.txt ./...
 
 after_success:
