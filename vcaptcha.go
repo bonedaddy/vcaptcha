@@ -31,6 +31,7 @@ func NewVCaptcha(jwtSecret string, minDiff int, maxDiff int) *VCaptcha {
 		tickets: make(map[string]*captcha),
 		minDiff: minDiff,
 		maxDiff: maxDiff,
+		jwt:     jwtauth.New("HS256", []byte(jwtSecret), nil),
 	}
 }
 
