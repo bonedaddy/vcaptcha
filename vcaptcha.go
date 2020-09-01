@@ -26,6 +26,8 @@ type VCaptcha struct {
 	maxDiff int
 }
 
+// NewVCaptcha returns a new instance of VCaptcha that generates tickets
+// within the defined difficulty range
 func NewVCaptcha(jwtSecret string, minDiff int, maxDiff int) *VCaptcha {
 	return &VCaptcha{
 		tickets: make(map[string]*captcha),
@@ -35,6 +37,7 @@ func NewVCaptcha(jwtSecret string, minDiff int, maxDiff int) *VCaptcha {
 	}
 }
 
+// Request is used to request a new ticket
 func (vp *VCaptcha) Request() ([]byte, error) {
 	tick, err := ticket.NewTicket(vp.getDiff())
 	if err != nil {
@@ -50,6 +53,9 @@ func (vp *VCaptcha) Request() ([]byte, error) {
 	return data, nil
 }
 
+// Verify takes a marshalled ticket struct and is used to verify
+// that it contains a valid proof. it ensures that the id and difficulty
+// are ones that we have previously allocated
 func (vp *VCaptcha) Verify(data []byte) (string, error) {
 	var tick ticket.Ticket
 	if err := json.Unmarshal(data, &tick); err != nil {
@@ -95,6 +101,7 @@ func (vp *VCaptcha) Verify(data []byte) (string, error) {
 	return tokenString, nil
 }
 
+// ensures that the given difficulty is within the range
 func (vp *VCaptcha) diffInRange(diff int) bool {
 	if diff > vp.maxDiff || diff < vp.minDiff {
 		return false
@@ -102,6 +109,7 @@ func (vp *VCaptcha) diffInRange(diff int) bool {
 	return true
 }
 
+// getDiff returns a new difficulty to use for a vdf withi na range
 func (vp *VCaptcha) getDiff() int {
 	return rand.Intn(vp.maxDiff-vp.minDiff+1) + vp.minDiff
 }
