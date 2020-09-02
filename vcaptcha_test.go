@@ -49,9 +49,9 @@ func TestVCaptcha(t *testing.T) {
 	_, err = cap.Verify(tickBytes)
 	require.Error(t, err)
 
-	require.False(t, cap.diffInRange(0))
-	require.True(t, cap.diffInRange(199))
-	require.False(t, cap.diffInRange(1000))
-	require.True(t, cap.diffInRange(cap.getDiff()))
+	require.False(t, cap.DiffInRange(0))
+	require.True(t, cap.DiffInRange(199))
+	require.False(t, cap.DiffInRange(1000))
+	require.True(t, cap.DiffInRange(cap.GetDiff()))
 
 }

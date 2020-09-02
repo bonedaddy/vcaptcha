@@ -37,9 +37,14 @@ func NewVCaptcha(jwtSecret string, minDiff int, maxDiff int) *VCaptcha {
 	}
 }
 
+// JWT returns the underlying JWT implementation
+func (vp *VCaptcha) JWT() *jwtauth.JWTAuth {
+	return vp.jwt
+}
+
 // Request is used to request a new ticket
 func (vp *VCaptcha) Request() ([]byte, error) {
-	tick, err := ticket.NewTicket(vp.getDiff())
+	tick, err := ticket.NewTicket(vp.GetDiff())
 	if err != nil {
 		return nil, err
 	}
@@ -62,7 +67,7 @@ func (vp *VCaptcha) Verify(data []byte) (string, error) {
 		return "", err
 	}
 
-	if !vp.diffInRange(tick.Difficulty) {
+	if !vp.DiffInRange(tick.Difficulty) {
 		return "", errors.New("invalid ticket difficulty")
 	}
 
@@ -102,7 +107,7 @@ func (vp *VCaptcha) Verify(data []byte) (string, error) {
 }
 
 // ensures that the given difficulty is within the range
-func (vp *VCaptcha) diffInRange(diff int) bool {
+func (vp *VCaptcha) DiffInRange(diff int) bool {
 	if diff > vp.maxDiff || diff < vp.minDiff {
 		return false
 	}
@@ -110,6 +115,6 @@ func (vp *VCaptcha) diffInRange(diff int) bool {
 }
 
 // getDiff returns a new difficulty to use for a vdf withi na range
-func (vp *VCaptcha) getDiff() int {
+func (vp *VCaptcha) GetDiff() int {
 	return rand.Intn(vp.maxDiff-vp.minDiff+1) + vp.minDiff
 }
