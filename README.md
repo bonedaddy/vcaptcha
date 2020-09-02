@@ -12,6 +12,10 @@ This KSUID is bundled into a "ticket" which is really a JSON object containing t
 
 After the VDF is solved the proof is then stored inside the ticket, and sent back to the server. The server then verifies that we did give out this seed + difficulty combination before. The proof is verified and if everything checks out we mark the captcha as solved, and generate a JWT which is then used to authenticate the user in the future.
 
+# usage
+
+To see a usage example implementing vcaptcha in a HTTP server see the `examples` directory.
+
 # future improvements
 
 * each captcha can be used by at most one session
