@@ -27,4 +27,4 @@ To see a usage example implementing vcaptcha in a HTTP server see the `examples`
 
 # license
 
-all code in the `vdf` folder is from `from https://github.com/harmony-one/vdf` i have included it in-tree as the harmony-one repository isn't very go modules friendly.
+all code in the `vdf` folder is from `from https://github.com/harmony-one/vdf` i have included it in-tree as the harmony-one repository isn't very go modules friendly. everything else is licensed under apache2.
