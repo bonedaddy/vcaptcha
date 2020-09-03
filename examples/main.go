@@ -11,6 +11,7 @@ import (
 	"github.com/bonedaddy/vcaptcha"
 	"github.com/go-chi/chi"
 	"github.com/go-chi/chi/middleware"
+	"github.com/go-chi/jwtauth"
 )
 
 const (
@@ -32,6 +33,16 @@ func main() {
 	}
 	r.Get("/captcha_request", srv.CaptchaRequest)
 	r.Post("/captcha_solve", srv.CaptchaSolve)
+	// group protected routes guarded by needing a JWT
+	r.Group(func(r chi.Router) {
+		r.Use(jwtauth.Verifier(srv.vcap.JWT()))
+		r.Use(jwtauth.Authenticator)
+		// while this is an example the general idea is that you would leverage this wildcard route
+		// to proxy requests to your backend
+		r.HandleFunc("/protected/*", func(w http.ResponseWriter, r *http.Request) {
+			w.Write([]byte("hello world"))
+		})
+	})
 	srv.srv = &http.Server{
 		Handler: r,
 		Addr:    listenAddr,
