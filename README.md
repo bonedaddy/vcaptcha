@@ -25,6 +25,8 @@ go1.12.16 download
 export GOPHERJS_GOROOT="$(go1.12.16 env GOROOT)"  # Also add this line to your .profile or equivalent.
 ```
 
+Build with `gopherjs build -m`
+
 # future improvements
 
 * each captcha can be used by at most one session
