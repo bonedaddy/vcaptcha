@@ -2,7 +2,6 @@
 
 vcaptcha is a proof of concept alternative to existing captcha systems using verifiable delay functions (vdf) to provide a privacy first, centralized provider free captcha service. It is non-interactive so that the end-user doesn't need to manually solve a puzzle. It in theory should be effective at stopping ddos attacks or bots however this hasn't been tested. Unfortunately at the moment vcaptcha requires golang as there is yet no solver for it in python or javascript.
 
-If you want to support vcaptcha you can send me XMR: `848dhb5aP9jLgnQfdTv3xnArh77xRSgTAWNxhf8U98BMfn4X2MngYi1ScSC2JAo16MPdtQfheojBv12vcrwedjdqKLHEPSw`
 
 # overview
 
