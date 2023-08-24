@@ -15,6 +15,17 @@ After the VDF is solved the proof is then stored inside the ticket, and sent bac
 
 To see a usage example implementing vcaptcha in a HTTP server see the `examples` directory.
 
+# javascript
+
+there is experimental support for building javascript bindings to vcaptcha, however it requires Go 1.12.x, if you don't have this you can run the following instructions:
+```
+go get golang.org/dl/go1.12.16
+go1.12.16 download
+export GOPHERJS_GOROOT="$(go1.12.16 env GOROOT)"  # Also add this line to your .profile or equivalent.
+```
+
+Build with `gopherjs build -m`
+
 # future improvements
 
 * each captcha can be used by at most one session
